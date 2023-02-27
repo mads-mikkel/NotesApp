@@ -41,12 +41,19 @@ namespace DataAccess
                 notes.Add(note);
             }
             connection.Close();
+            connection.Dispose();
             return notes;
         }
 
         public void SaveNew(Note note)
         {
-
+            string sql = $"INSERT INTO Notes(Created, Title, Text) VALUES('{note.Created.ToString("yyyy-MM-dd HH:mm:ss")}', '{note.Title}', '{note.Text}');";
+            SqlConnection connection = new SqlConnection(connectionString);
+            SqlCommand command = new(sql, connection);
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
+            connection.Dispose();
         }
     }
 }

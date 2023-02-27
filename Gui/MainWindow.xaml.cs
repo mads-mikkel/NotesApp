@@ -1,5 +1,7 @@
 ﻿using DataAccess;
 
+using Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +28,9 @@ namespace Gui
         {
             InitializeComponent();
             Repository r = new();
-            r.GetAllNotes();
+            Note n = new(DateTime.Now, "Save", "Me a lot of money");
+            r.SaveNew(n);
+            var l = r.GetAllNotes();
         }
     }
 }
